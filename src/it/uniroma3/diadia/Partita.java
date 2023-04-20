@@ -14,6 +14,8 @@ import it.uniroma3.diadia.giocatore.Giocatore;
 
 public class Partita {
 
+
+
 	private Labirinto labirinto;
 	private Giocatore giocatore;
 	private boolean finita;
@@ -65,6 +67,5 @@ public class Partita {
 	public void setFinita() {
 		this.finita = true;
 	}
-
 
 }

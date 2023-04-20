@@ -7,7 +7,6 @@ import it.uniroma3.diadia.attrezzi.Attrezzo;
  * E' collegata ad altre stanze attraverso delle uscite.
  * Ogni uscita e' associata ad una direzione.
  * 
- * @author docente di POO 
  * @see Attrezzo
  * @version base
  */
@@ -22,6 +21,16 @@ public class Stanza {
 	private int numeroAttrezzi;
 	private Stanza[] stanzeAdiacenti;
 	private int numeroStanzeAdiacenti;
+	
+	
+	public int getNumeroStanzeAdiacenti() {
+		return numeroStanzeAdiacenti;
+	}
+
+	public void setNumeroStanzeAdiacenti(int numeroStanzeAdiacenti) {
+		this.numeroStanzeAdiacenti = numeroStanzeAdiacenti;
+	}
+
 	private String[] direzioni;
 
 	/**
@@ -68,6 +77,10 @@ public class Stanza {
 			if (this.direzioni[i].equals(direzione))
 				stanza = this.stanzeAdiacenti[i];
 		return stanza;
+	}
+	
+	public Stanza getStanzaAdiacente(int i) {
+		return this.stanzeAdiacenti[i];
 	}
 
 	/**
@@ -137,7 +150,7 @@ public class Stanza {
 		boolean trovato;
 		trovato = false;
 		for (Attrezzo attrezzo : this.attrezzi) {
-			if (attrezzo.getNome().equals(nomeAttrezzo))
+			if ((attrezzo!=null) && (attrezzo.getNome().equals(nomeAttrezzo)))
 				trovato = true;
 		}
 		return trovato;
@@ -190,6 +203,10 @@ public class Stanza {
 		for(int i=0; i<this.numeroStanzeAdiacenti; i++)
 			direzioni[i] = this.direzioni[i];
 		return direzioni;
+	}
+	
+	public String getDirezione(int i) {
+		return this.direzioni[i];
 	}
 
 }
