@@ -1,53 +1,64 @@
 package it.uniroma3.diadia.comandi;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import it.uniroma3.diadia.IOConsole;
+import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.ambienti.Labirinto;
-import it.uniroma3.diadia.ambienti.Stanza;
+import it.uniroma3.diadia.ambienti.LabirintoBuilder;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
-import it.uniroma3.diadia.giocatore.Giocatore;
 
 public class ComandoPosaTest {
-	
+
 	private Partita partita;
 	private Attrezzo attrezzo;
-	private Stanza stanzaCorrente;
-	private ComandoPosa comando;
-	private Labirinto labirinto;
-	private Giocatore giocatore;
+	private Comando comando;
+	Labirinto labirinto;
 
 	@Before
-	public void setUp() {
+	public void setUp() throws Exception {
+		labirinto = new LabirintoBuilder()
+				.addStanzaIniziale("Atrio")
+				.addAttrezzo("seghetto", 3)
+				.addStanzaVincente("Biblioteca")
+				.addAdiacenza("Atrio", "Biblioteca", "nord")
+				.getLabirinto();
+		partita = new Partita(labirinto);
+		attrezzo = new Attrezzo("martello", 2);
 		comando = new ComandoPosa();
-		partita = new Partita();
-		attrezzo = new Attrezzo("osso",1);
-		stanzaCorrente = new Stanza("N11");
-		labirinto = new Labirinto();
-		giocatore = new Giocatore();
-		giocatore.getBorsa().addAttrezzo(attrezzo);
-		labirinto.setStanzaCorrente(stanzaCorrente);
-		partita.setLabirinto(labirinto);
-		partita.setGiocatore(giocatore);
 	}
-	
-	@Test
-	public void testAttrezzoPresenteInBorsa() {
-		assertTrue(this.giocatore.getBorsa().hasAttrezzo(attrezzo.getNome()));
+
+	@After
+	public void tearDown() throws Exception {
 	}
-	
+
 	@Test
 	public void testAttrezzoPosato() {
-		comando.setParametro(attrezzo.getNome());
+		partita.getGiocatore().getBorsa().addAttrezzo(attrezzo);
+		comando.setParametro("martello");
 		comando.esegui(partita);
-		assertFalse(this.giocatore.getBorsa().hasAttrezzo(attrezzo.getNome()));
-		assertTrue(this.partita.getLabirinto().getStanzaCorrente().hasAttrezzo(attrezzo.getNome()));
-		
+		assertTrue(partita.getStanzaCorrente().hasAttrezzo("martello"));
 	}
-	
+
+	@Test
+	public void testAttrezzoPosatoNull() {
+		comando.setParametro("martello");
+		comando.esegui(partita);
+		assertFalse(partita.getStanzaCorrente().hasAttrezzo("martello"));
+	}
+
+
+	public void creatoreAttrezzi() {
+		for(int i= 0; i<10;i++) {
+			partita.getStanzaCorrente().addAttrezzo(new Attrezzo("utensile"+i, 1));
+		}
+	}
 	
 
 }

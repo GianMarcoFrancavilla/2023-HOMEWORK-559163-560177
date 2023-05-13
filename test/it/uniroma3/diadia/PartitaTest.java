@@ -6,17 +6,29 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import it.uniroma3.diadia.ambienti.Labirinto;
+import it.uniroma3.diadia.ambienti.LabirintoBuilder;
+import it.uniroma3.diadia.ambienti.Stanza;
+
 /**
  * Test della classe Partita
  */
 public class PartitaTest {
+	private Labirinto labirinto;
 	private Partita partita;
+	private Stanza stanza;
 	
 	@Before
-	public void setUp() throws Exception {
-		this.partita = new Partita();
+	public void setUp() {
+		 labirinto = new LabirintoBuilder()
+				.addStanzaIniziale("Atrio")
+				.addAttrezzo("martello", 3)
+				.addStanzaVincente("Biblioteca")
+				.addAdiacenza("Atrio", "Biblioteca", "nord")
+				.getLabirinto();
+		 partita = new Partita(labirinto);
+		 stanza = new Stanza("Stanza");
 	}
-	
 	/**
 	 *  Controlla se la partita non è finita quando la partita è inizializzata;
 	 */

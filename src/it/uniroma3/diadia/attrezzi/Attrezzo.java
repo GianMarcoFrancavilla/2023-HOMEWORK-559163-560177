@@ -11,7 +11,7 @@ import it.uniroma3.diadia.ambienti.Stanza;
  * @see Stanza
  * @version base
  */
-public class Attrezzo {
+public class Attrezzo implements Comparable<Attrezzo>{
 
 	private String nome;
 	private int peso;
@@ -26,6 +26,7 @@ public class Attrezzo {
 		this.nome = nome;
 	}
 
+	
 	/**
 	 * Restituisce il nome identificatore dell'attrezzo
 	 * @return il nome identificatore dell'attrezzo
@@ -33,6 +34,13 @@ public class Attrezzo {
 	public String getNome() {
 		return this.nome;
 	}
+	
+	
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
 
 	/**
 	 * Restituisce il peso dell'attrezzo
@@ -41,6 +49,10 @@ public class Attrezzo {
 	public int getPeso() {
 		return this.peso;
 	}
+	
+	public void setPeso(int peso) {
+		this.peso = peso;
+	}
 
 	/**
 	 * Restituisce una rappresentazione stringa di questo attrezzo
@@ -48,6 +60,12 @@ public class Attrezzo {
 	 */
 	public String toString() {
 		return this.getNome()+" ("+this.getPeso()+"kg)";
+	}
+
+
+	@Override
+	public int compareTo(Attrezzo attr) {
+		return this.getNome().compareTo(attr.getNome());
 	}
 
 }
