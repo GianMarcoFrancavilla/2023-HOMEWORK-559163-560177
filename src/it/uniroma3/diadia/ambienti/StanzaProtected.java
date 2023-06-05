@@ -19,10 +19,9 @@ public class StanzaProtected {
 
 	protected String nome;
 	protected HashMap<String,Attrezzo> attrezzi;
-	protected  int numeroAttrezzi;
 	protected HashMap<String,Stanza>stanzeAdiacenti;
-	protected  int numeroStanzeAdiacenti;
-	protected  String[] direzioni;
+	protected int numeroStanzeAdiacenti;
+	protected String[] direzioni;
 
 	public int getNumeroStanzeAdiacenti() {
 		return numeroStanzeAdiacenti;

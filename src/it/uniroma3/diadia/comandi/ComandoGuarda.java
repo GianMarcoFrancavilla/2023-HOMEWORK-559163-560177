@@ -5,12 +5,14 @@ import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
-public class ComandoGuarda implements Comando {
+public class ComandoGuarda extends AbstractComando {
 	private IO io;
 	
 	@Override
 	public void esegui(Partita partita) {
 		io=new IOConsole();
+		
+		
 		StringBuilder risultato = new StringBuilder();
 		risultato.append(partita.getLabirinto().getStanzaCorrente().getNome());
 		risultato.append("\nUscite: ");
@@ -25,10 +27,5 @@ public class ComandoGuarda implements Comando {
 		io.mostraMessaggio(risultato);
 	}
 
-	@Override
-	public void setParametro(String parametro) {
-		
-
-	}
 
 }

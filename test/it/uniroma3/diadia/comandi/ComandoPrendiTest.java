@@ -1,75 +1,77 @@
 package it.uniroma3.diadia.comandi;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
-import java.util.Set;
-
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.ambienti.Labirinto;
-import it.uniroma3.diadia.ambienti.LabirintoBuilder;
+import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
+import it.uniroma3.diadia.giocatore.Giocatore;
+
+
 
 public class ComandoPrendiTest {
-
 	private Partita partita;
+	private Stanza stanzaCorrente;
 	private Attrezzo attrezzo;
+	private Attrezzo attrezzoPieno;
 	private Attrezzo attrezzoPesante;
-	private Comando comando;
-	Labirinto labirinto;
+	private ComandoPrendi comando;
+	private Labirinto labirinto;
+	private Giocatore giocatore;
 	
+
 	@Before
 	public void setUp() throws Exception {
-		labirinto = new LabirintoBuilder()
-				.addStanzaIniziale("Atrio")
-				.addAttrezzo("martello", 3)
-				.addStanzaVincente("Biblioteca")
-				.addAdiacenza("Atrio", "Biblioteca", "nord")
-				.getLabirinto();
-		partita = new Partita(labirinto);
-		attrezzo = new Attrezzo("martello", 2);
-		attrezzoPesante = new Attrezzo("incudine", 11);
 		comando = new ComandoPrendi();
-
-	}
-
-
-	@After
-	public void tearDown() throws Exception {
-	}
-	
-	public boolean attrezzoPresente(String s) {
-		//Set<Attrezzo> set = partita.getStanzaCorrente().getAttrezzi();
-		if(partita.getStanzaCorrente().getAttrezzo(s)==null)
-			return false;
-		return true;
-		}
-	
-	@Test
-	public void testAttrezzoPreso() {
-		partita.getStanzaCorrente().addAttrezzo(attrezzo);
-		comando.setParametro("martello");
-		comando.esegui(partita);
-		assertFalse(attrezzoPresente("martello"));
+		giocatore = new Giocatore();
+		labirinto = new Labirinto();
+		partita = new Partita(labirinto);
+		attrezzoPesante = new Attrezzo("zaino", 11);
+		attrezzo= new Attrezzo("patata", 1);
+		attrezzoPieno= new Attrezzo("iphone", 1);
+		stanzaCorrente = new Stanza("N11");
+		
+		stanzaCorrente.addAttrezzo(attrezzo);
+		stanzaCorrente.addAttrezzo(attrezzoPieno);
+		stanzaCorrente.addAttrezzo(attrezzoPesante);
+		
+		labirinto.setStanzaCorrente(stanzaCorrente);
+		
+		partita.setLabirinto(labirinto);
+		partita.getLabirinto().getStanzaCorrente().addAttrezzo(attrezzo);
+		partita.setGiocatore(giocatore);
+		
+		
 	}
 	
 	@Test
-	public void testAttrezzoNonPresente() {
-		comando.setParametro("martello");
+	public void testPreso() {
+		comando.setParametro("patata");
 		comando.esegui(partita);
-		assertFalse(attrezzoPresente("martello"));
+		assertTrue(this.giocatore.getBorsa().hasAttrezzo("patata"));
+		
+	}
+	
+	@Test
+	public void testNonPresenteInStanza() {
+		comando.setParametro("patata");
+		comando.esegui(partita);
+		assertFalse(this.stanzaCorrente.hasAttrezzo("patata"));
+		
 	}
 	
 	@Test
 	public void testAttrezzoPesante() {
-		partita.getStanzaCorrente().addAttrezzo(attrezzoPesante);
-		comando.setParametro("incudine");
+		comando.setParametro("zaino");
 		comando.esegui(partita);
-		assertTrue(attrezzoPresente("incudine"));
+		assertFalse(this.giocatore.getBorsa().hasAttrezzo("zaino"));
+		assertTrue(this.stanzaCorrente.hasAttrezzo("zaino"));
+		
 	}
+	
 	
 }

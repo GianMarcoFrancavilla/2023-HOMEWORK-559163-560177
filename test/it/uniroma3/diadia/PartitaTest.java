@@ -3,32 +3,35 @@ package it.uniroma3.diadia;
 import static org.junit.Assert.*;
 
 
+
 import org.junit.Before;
 import org.junit.Test;
 
 import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.ambienti.LabirintoBuilder;
-import it.uniroma3.diadia.ambienti.Stanza;
+
 
 /**
  * Test della classe Partita
  */
 public class PartitaTest {
-	private Labirinto labirinto;
 	private Partita partita;
-	private Stanza stanza;
+	private Labirinto labirinto;
+
+	
 	
 	@Before
-	public void setUp() {
-		 labirinto = new LabirintoBuilder()
-				.addStanzaIniziale("Atrio")
+	public void setUp() throws Exception {
+		labirinto = new LabirintoBuilder()
+				.addStanzaIniziale("LabCampusOne") 
 				.addAttrezzo("martello", 3)
-				.addStanzaVincente("Biblioteca")
-				.addAdiacenza("Atrio", "Biblioteca", "nord")
+				.addStanzaVincente("Biblioteca") 
+				.addAdiacenza("LabCampusOne","Biblioteca","nord") 
 				.getLabirinto();
-		 partita = new Partita(labirinto);
-		 stanza = new Stanza("Stanza");
+		partita = new Partita(labirinto);
+		
 	}
+	
 	/**
 	 *  Controlla se la partita non è finita quando la partita è inizializzata;
 	 */

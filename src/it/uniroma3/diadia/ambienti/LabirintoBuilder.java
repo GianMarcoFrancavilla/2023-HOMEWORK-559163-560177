@@ -25,16 +25,16 @@ public class LabirintoBuilder {
 	}
 
 	public LabirintoBuilder addStanzaIniziale(String stanzaIniziale) {
-		Stanza i = new Stanza(stanzaIniziale);
-		this.labirinto.setStanzaCorrente(i);
-		this.UltimaStanzaAggiuntaEAggiorna(i);
+		Stanza inizio = new Stanza(stanzaIniziale);
+		this.labirinto.setStanzaCorrente(inizio);
+		this.UltimaStanzaAggiuntaEAggiorna(inizio);
 		return this;
 	}
 
 	public LabirintoBuilder addStanzaVincente(String stanzaVincente) {
-		Stanza s = new Stanza(stanzaVincente);
-		this.labirinto.setStanzaVincente(s);
-		this.UltimaStanzaAggiuntaEAggiorna(s);
+		Stanza vinco = new Stanza(stanzaVincente);
+		this.labirinto.setStanzaVincente(vinco);
+		this.UltimaStanzaAggiuntaEAggiorna(vinco);
 		return this;
 	}
 
@@ -59,17 +59,18 @@ public class LabirintoBuilder {
 		return this;
 	}
 	
-	public LabirintoBuilder addStanzaMagica(String nome,int sogliaMagica) {
+	public LabirintoBuilder addStanzaMagica(String nome, int sogliaMagica) {
 		Stanza stanza = new StanzaMagica(nome, sogliaMagica);
 		this.UltimaStanzaAggiuntaEAggiorna(stanza);
 		return this;
 	}
-
-	public LabirintoBuilder addStanzaBuia(String nome,String nomeAttrezzo ) {
+	
+	public LabirintoBuilder addStanzaBuia(String nome, String nomeAttrezzo) {
 		Stanza stanza = new StanzaBuia(nome);
 		this.UltimaStanzaAggiuntaEAggiorna(stanza);
 		return this;
 	}
+
 	
 	public LabirintoBuilder addStanzaBloccata(String nome, String attrezzoSbloccante, String direzioneBloccata) {
 		Stanza stanza = new StanzaBloccata(nome, attrezzoSbloccante, direzioneBloccata);

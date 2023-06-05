@@ -19,18 +19,17 @@ public class Partita {
 	private Labirinto labirinto;
 	private Giocatore giocatore;
 	private boolean finita;
+
 	
 	public Partita(){
-		this.labirinto = new Labirinto();
+		this.labirinto=new Labirinto();
 		giocatore = new Giocatore();
-		//labirinto.creaStanze();
 		this.finita = false;
-	}
-
-	public Partita(Labirinto labirinto){
-		this.labirinto = labirinto;
+	} 
+	
+	public Partita(Labirinto lab){
+		this.labirinto=lab;
 		giocatore = new Giocatore();
-		//labirinto.creaStanze();
 		this.finita = false;
 	}
 
@@ -75,17 +74,5 @@ public class Partita {
 		this.finita = true;
 	}
 
-	public boolean giocatoreIsVivo() {
-		return this.giocatore.getCfu()>0;
-	}
-	
-	public void setStanzaCorrente(Stanza stanzaCorrente) {
-		this.getLabirinto().setStanzaCorrente(stanzaCorrente);
-	}
-
-	public Stanza getStanzaCorrente() {
-		return this.getLabirinto().getStanzaCorrente();
-	}
-	
 
 }

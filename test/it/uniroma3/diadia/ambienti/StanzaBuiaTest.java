@@ -8,23 +8,24 @@ import org.junit.Test;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class StanzaBuiaTest {
-
 	private StanzaBuia stanza;
 	private Attrezzo attrezzo;
 	
+	
 	@Before
 	public void setUp() throws Exception {
-		stanza=new StanzaBuia("N11");
-		attrezzo=new Attrezzo("lanterna", 3);
+		stanza = new StanzaBuia("N11");
+		attrezzo = new Attrezzo("lanterna", 3);
+		
 	}
-	
+
 	@Test
-	public void testStanzaBuia() {
+	public void testBuiaSi() {
 		assertEquals(stanza.toString() + "qui c'è buio pesto", stanza.getDescrizione());
 	}
 	
 	@Test
-	public void testStanzaIlluminata() {
+	public void testBuiaNo() {
 		stanza.addAttrezzo(attrezzo);
 		assertEquals(stanza.toString(), stanza.getDescrizione());
 	}
